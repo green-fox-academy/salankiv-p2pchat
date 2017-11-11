@@ -1,13 +1,18 @@
 package com.greenfox.salankiv.p2pchat.service;
 
-import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 
-@Service
+import javax.servlet.http.HttpServletRequest;
+
+@ControllerAdvice
 public class ExceptionHandler {
 
-	@org.springframework.web.bind.annotation.ExceptionHandler(HttpMessageNotReadableException.class)
-	public void displayHttpError(HttpMessageNotReadableException exeption) {
-		System.err.println(exeption.getMessage());
+	@Autowired
+	RequestHandler requestHandler;
+
+	@org.springframework.web.bind.annotation.ExceptionHandler(Throwable.class)
+	public String handleException(HttpServletRequest request, Throwable exception) {
+		return requestHandler.printNewError(request);
 	}
 }

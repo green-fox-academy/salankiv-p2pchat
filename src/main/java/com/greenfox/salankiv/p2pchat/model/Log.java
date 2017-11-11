@@ -1,7 +1,5 @@
 package com.greenfox.salankiv.p2pchat.model;
 
-import org.hibernate.annotations.Generated;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,7 +27,7 @@ public class Log {
 	public Log(HttpServletRequest request) {
 		this.path = request.getServletPath();
 		this.method = request.getMethod();
-		this.createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-yy HH:mm:ss.SSS"));
+		this.createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
 		this.logLevel = System.getenv("CHAT_APP_LOGLEVEL");
 		this.requestData = request.getQueryString();
 	}
@@ -76,7 +74,7 @@ public class Log {
 
 	public String getLog() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(this.createdAt)
+		sb.append(this.createdAt).append("  ")
 				.append(this.logLevel).append(' ')
 				.append(this.path).append(' ')
 				.append(this.method).append(' ')

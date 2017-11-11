@@ -1,7 +1,6 @@
 package com.greenfox.salankiv.p2pchat.controller;
 
-import com.greenfox.salankiv.p2pchat.model.Log;
-import com.greenfox.salankiv.p2pchat.repository.LogRepository;
+import com.greenfox.salankiv.p2pchat.service.RequestHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,11 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 public class MainController {
 
 	@Autowired
-	LogRepository logRepository;
+	RequestHandler requestHandler;
 
-	@GetMapping(value = "/")
-	public void loadMain(HttpServletRequest request) {
-		logRepository.save(new Log(request));
-		System.out.println(new Log(request).getLog());
+	@GetMapping(value = {"/", ""})
+	public String loadMain(HttpServletRequest request) {
+		return requestHandler.checkEnv(request);
 	}
 }
