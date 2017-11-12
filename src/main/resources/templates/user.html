@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Enter username</title>
+</head>
+<body>
+<h2 th:if="${noUserName} == ''">The username field is empty!</h2>
+<h1>Enter</h1>
+<form action="/enter/add">
+    Choose your name:
+    <input type="text" name="userName" placeholder="username"/>
+    <input type="submit" value="Enter"/>
+</form>
+</body>
+</html>
