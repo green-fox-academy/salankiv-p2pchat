@@ -1,12 +1,13 @@
 package com.greenfox.salankiv.p2pchat.controller;
 
+import com.greenfox.salankiv.p2pchat.model.UserHandler;
 import com.greenfox.salankiv.p2pchat.service.RequestHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,10 +17,18 @@ public class RestController {
 	@Autowired
 	RequestHandler requestHandler;
 
+	@Autowired
+	UserHandler userHandler;
+
 	@GetMapping(value = "/")
-	@ResponseBody
-	public void loadMain(HttpServletRequest request) {
-		requestHandler.checkEnv(request);
+	public String loadMain(HttpServletRequest request, Model model) {
+		requestHandler.printNewLog(request);
+		if (userHandler.getActiveUser() == null) {
+			return "user";
+		} else {
+			model.addAttribute("activeUser", userHandler.getActiveUser());
+			return "main";
+		}
 	}
 
 	@GetMapping(value = "/enter")
@@ -34,8 +43,34 @@ public class RestController {
 			model.addAttribute("noUserName", userName);
 			requestHandler.printNewError(request);
 			return "user";
-		} else requestHandler.addChatUser(userName);
-		requestHandler.printNewLog(request);
+		} else if (userHandler.checkIfUserExists(userName)) {
+			userHandler.setActiveUser(userHandler.getUserFromDatabaseByName(userName));
+			return "redirect:/";
+		} else {
+			userHandler.addChatUser(userName);
+			userHandler.setActiveUser(userHandler.getUserFromDatabaseByName(userName));
+			requestHandler.printNewLog(request);
+			return "redirect:/";
+		}
+	}
+
+	@GetMapping(value = "/{id}/update")
+	public String updateUser(@PathVariable(value = "id", required = true) Long id,
+							 @RequestParam(value = "userName", required = true) String userName,
+							 HttpServletRequest request, Model model) {
+		if (userName.equals("")) {
+			model.addAttribute("noUserName", userName);
+			model.addAttribute("activeUser", userHandler.getActiveUser());
+			requestHandler.printNewError(request);
+			return "main";
+		} else if (userHandler.checkIfUserExists(userName)) {
+			model.addAttribute("existingUserName", true);
+			model.addAttribute("activeUser", userHandler.getActiveUser());
+			return "main";
+		} else {
+			userHandler.getActiveUser().setUserName(userName);
+			userHandler.saveUser(userHandler.getActiveUser());
+		}
 		return "redirect:/";
 	}
 }

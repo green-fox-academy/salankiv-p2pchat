@@ -18,10 +18,8 @@ public class RequestHandler {
 	@Autowired
 	LogRepository logRepository;
 
-	public void checkEnv(HttpServletRequest request) {
-		if (System.getenv("CHAT_APP_LOGLEVEL").equals("INFO")) {
-			printNewLog(request);
-		}
+	public boolean checkEnvIfInfo() {
+		return  (System.getenv("CHAT_APP_LOGLEVEL").equals("INFO"));
 	}
 
 	public void printNewError(HttpServletRequest request) {
@@ -33,14 +31,11 @@ public class RequestHandler {
 	}
 
 	public void printNewLog(HttpServletRequest request) {
-		Log log = new Log(request);
-		String print = log.getLog().toString();
-		System.out.println(print);
-		logRepository.save(log);
-	}
-
-	public void addChatUser(String userName) {
-		ChatUser chatUser = new ChatUser(userName);
-		chatUserRepository.save(chatUser);
+		if (checkEnvIfInfo()) {
+			Log log = new Log(request);
+			String print = log.getLog().toString();
+			System.out.println(print);
+			logRepository.save(log);
+		}
 	}
 }

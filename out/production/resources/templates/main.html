@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Peer to Peer Chat Program</title>
+</head>
+<body>
+<h2 th:if="${noUserName} == ''">The username field is empty!</h2>
+<h2 th:if="${existingUserName} == true">The username is already used!</h2>
+<h1>Peer to Peer Chat Program</h1>
+<form th:action="@{/{id}/update(id=${activeUser.getId()})}">
+    Your username:
+    <!--<input type="hidden" name="id" th:value="${activeUser.getId()}"/>-->
+    <input type="text" th:placeholder="${activeUser.getUserName()}" name="userName"/>
+    <input type="submit" value="Update"/>
+</form>
+</body>
+</html>
