@@ -10,9 +10,15 @@
 <h1>Peer to Peer Chat Program</h1>
 <form th:action="@{/{id}/update(id=${activeUser.getId()})}">
     Your username:
-    <!--<input type="hidden" name="id" th:value="${activeUser.getId()}"/>-->
     <input type="text" th:placeholder="${activeUser.getUserName()}" name="userName"/>
     <input type="submit" value="Update"/>
 </form>
+<form action="/logout">
+    <input type="submit" value="Logout"/>
+</form>
+<ul>
+    <li>App</li>
+    <li style="list-style-type:none">Hi there! Submit your message using the send button!</li>
+</ul>
 </body>
 </html>

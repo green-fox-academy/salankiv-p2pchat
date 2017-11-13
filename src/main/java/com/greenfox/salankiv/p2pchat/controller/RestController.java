@@ -73,4 +73,10 @@ public class RestController {
 		}
 		return "redirect:/";
 	}
+
+	@GetMapping(value = "/logout")
+	public String logoutUser() {
+		userHandler.setActiveUser(null);
+		return "redirect:/";
+	}
 }
