@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,26 +42,25 @@ public class MainController {
 	}
 
 	@GetMapping(value = "/enter/add")
-	public String addUser(@RequestParam(value = "userName", required = true) String userName,
+	public String addUser(@RequestParam(value = "username", required = true) String username,
 						  HttpServletRequest request, Model model) {
-		if (userName.equals("")) {
-			model.addAttribute("noUserName", userName);
+		if (username.equals("")) {
+			model.addAttribute("noUserName", username);
 			requestHandler.printNewError(request);
 			return "user";
-		} else if (userHandler.checkIfUserExists(userName)) {
-			userHandler.setActiveUser(userHandler.getUserFromDatabaseByName(userName));
+		} else if (userHandler.checkIfUserExists(username)) {
+			userHandler.setActiveUser(userHandler.getUserFromDatabaseByName(username));
 			return "redirect:/";
 		} else {
-			userHandler.addChatUser(userName);
-			userHandler.setActiveUser(userHandler.getUserFromDatabaseByName(userName));
+			userHandler.addUser(username);
+			userHandler.setActiveUser(userHandler.getUserFromDatabaseByName(username));
 			requestHandler.printNewLog(request);
 			return "redirect:/";
 		}
 	}
 
-	@GetMapping(value = "/{id}/update")
-	public String updateUser(@PathVariable(value = "id", required = true) Long id,
-							 @RequestParam(value = "userName", required = true) String userName,
+	@GetMapping(value = "/update")
+	public String updateUser(@RequestParam(value = "username", required = true) String userName,
 							 HttpServletRequest request, Model model) {
 		if (userName.equals("")) {
 			model.addAttribute("noUserName", userName);
@@ -74,7 +72,7 @@ public class MainController {
 			model.addAttribute("activeUser", userHandler.getActiveUser());
 			return "main";
 		} else {
-			userHandler.getActiveUser().setUserName(userName);
+			userHandler.getActiveUser().setUsername(userName);
 			userHandler.saveUser(userHandler.getActiveUser());
 		}
 		return "redirect:/";

@@ -19,32 +19,28 @@ public class UserHandler {
 	}
 
 	@Autowired
-	UserRepository chatUserRepository;
+	UserRepository userRepository;
 
-	public void addChatUser(String userName) {
-		User chatUser = new User(userName);
-		chatUserRepository.save(chatUser);
+	public void addUser(String username) {
+		User user = new User(username);
+		userRepository.save(user);
 	}
 
-	public boolean checkIfUserExists(String userName) {
+	public boolean checkIfUserExists(String username) {
 		boolean exists = false;
-		for (User user : chatUserRepository.findAll()) {
-			if (user.getUserName().equals(userName)) {
+		for (User user : userRepository.findAll()) {
+			if (user.getUsername().equals(username)) {
 				exists = true;
 			}
 		}
 		return exists;
 	}
 
-	public User getUserFromDatabaseByName(String userName) {
-		return chatUserRepository.findUserByUserName(userName);
-	}
-
-	public User getUserFromDatabaseById(Long id) {
-		return chatUserRepository.findUserById(id);
+	public User getUserFromDatabaseByName(String username) {
+		return userRepository.findUserByUsername(username);
 	}
 
 	public void saveUser(User user) {
-		chatUserRepository.save(user);
+		userRepository.save(user);
 	}
 }

@@ -8,9 +8,9 @@
 <h2 th:if="${noUserName} == ''">The username field is empty!</h2>
 <h2 th:if="${existingUserName} == true">The username is already used!</h2>
 <h1>Peer to Peer Chat Program</h1>
-<form th:action="@{/{id}/update(id=${activeUser.getId()})}">
+<form action="/update">
     Your username:
-    <input type="text" th:placeholder="${activeUser.getUserName()}" name="userName"/>
+    <input type="text" th:placeholder="${activeUser.getUsername()}" name="username"/>
     <input type="submit" value="Update"/>
 </form>
 <form action="/logout">
@@ -21,7 +21,7 @@
     <li style="list-style-type:none">Hi there! Submit your message using the send button!</li>
 </ul>
 <ul th:each="message : ${messages}" >
-    <li th:text="${activeUser.getUserName()}"></li>
+    <li th:text="${activeUser.getUsername()}"></li>
     <li style="list-style-type:none" th:text="${message.getText()}"></li>
 </ul>
 <form action="/newmessage">

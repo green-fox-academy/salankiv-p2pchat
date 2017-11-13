@@ -1,5 +1,8 @@
 package com.greenfox.salankiv.p2pchat.model;
 
+import com.greenfox.salankiv.p2pchat.service.UserHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -16,11 +19,12 @@ public class Message {
 	private int id;
 
 	private String text;
-	private String createdAt;
+	private String timestamp;
+	private String username;
 
 	public Message(String text) {
 		this.text = text;
-		this.createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
+		this.timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
 		this.id = new Random().nextInt(9999999) + 1000000;
 	}
 
@@ -41,6 +45,14 @@ public class Message {
 
 	@OneToOne
 	public User user;
+
+	public String getUsername() {
+		return user.getUsername();
+	}
+
+	public Long getUserId() {
+		return user.getId();
+	}
 
 	public User getUser() {
 		return user;
