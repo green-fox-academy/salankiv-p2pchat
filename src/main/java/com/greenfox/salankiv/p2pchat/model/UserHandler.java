@@ -6,13 +6,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserHandler {
 
-	private ChatUser activeUser;
+	private User activeUser;
 
-	public ChatUser getActiveUser() {
+	public User getActiveUser() {
 		return activeUser;
 	}
 
-	public void setActiveUser(ChatUser activeUser) {
+	public void setActiveUser(User activeUser) {
 		this.activeUser = activeUser;
 	}
 
@@ -20,13 +20,13 @@ public class UserHandler {
 	ChatUserRepository chatUserRepository;
 
 	public void addChatUser(String userName) {
-		ChatUser chatUser = new ChatUser(userName);
+		User chatUser = new User(userName);
 		chatUserRepository.save(chatUser);
 	}
 
 	public boolean checkIfUserExists(String userName) {
 		boolean exists = false;
-		for (ChatUser user : chatUserRepository.findAll()) {
+		for (User user : chatUserRepository.findAll()) {
 			if (user.getUserName().equals(userName)) {
 				exists = true;
 			}
@@ -34,15 +34,15 @@ public class UserHandler {
 		return exists;
 	}
 
-	public ChatUser getUserFromDatabaseByName(String userName) {
+	public User getUserFromDatabaseByName(String userName) {
 		return chatUserRepository.findChatUserByUserName(userName);
 	}
 
-	public ChatUser getUserFromDatabaseById(Long id) {
+	public User getUserFromDatabaseById(Long id) {
 		return chatUserRepository.findChatUserById(id);
 	}
 
-	public void saveUser(ChatUser user) {
+	public void saveUser(User user) {
 		chatUserRepository.save(user);
 	}
 }

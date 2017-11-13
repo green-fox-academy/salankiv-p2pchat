@@ -2,9 +2,9 @@ package com.greenfox.salankiv.p2pchat.model;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface ChatUserRepository extends CrudRepository<ChatUser, Long> {
+public interface ChatUserRepository extends CrudRepository<User, Long> {
 
-	ChatUser findChatUserByUserName(String userName);
+	User findChatUserByUserName(String userName);
 
-	ChatUser findChatUserById(Long id);
+	User findChatUserById(Long id);
 }

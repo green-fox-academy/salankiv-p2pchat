@@ -1,12 +1,10 @@
 package com.greenfox.salankiv.p2pchat.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Entity
-public class ChatUser {
+@Entity(name = "user")
+@Table(name = "chat_user")
+public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,10 +12,10 @@ public class ChatUser {
 
 	private String userName;
 
-	public ChatUser() {
+	public User() {
 	}
 
-	public ChatUser(String userName) {
+	public User(String userName) {
 		this.userName = userName;
 	}
 

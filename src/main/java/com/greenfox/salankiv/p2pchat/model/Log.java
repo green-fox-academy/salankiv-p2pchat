@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-@Entity
+@Entity(name = "log")
 public class Log {
 
 	@Id
