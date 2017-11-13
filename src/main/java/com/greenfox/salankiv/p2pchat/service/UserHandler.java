@@ -1,5 +1,7 @@
-package com.greenfox.salankiv.p2pchat.model;
+package com.greenfox.salankiv.p2pchat.service;
 
+import com.greenfox.salankiv.p2pchat.model.ChatUserRepository;
+import com.greenfox.salankiv.p2pchat.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
