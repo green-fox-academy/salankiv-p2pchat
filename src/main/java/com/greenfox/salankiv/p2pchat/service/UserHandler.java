@@ -1,6 +1,6 @@
 package com.greenfox.salankiv.p2pchat.service;
 
-import com.greenfox.salankiv.p2pchat.model.ChatUserRepository;
+import com.greenfox.salankiv.p2pchat.model.UserRepository;
 import com.greenfox.salankiv.p2pchat.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class UserHandler {
 	}
 
 	@Autowired
-	ChatUserRepository chatUserRepository;
+	UserRepository chatUserRepository;
 
 	public void addChatUser(String userName) {
 		User chatUser = new User(userName);
@@ -37,11 +37,11 @@ public class UserHandler {
 	}
 
 	public User getUserFromDatabaseByName(String userName) {
-		return chatUserRepository.findChatUserByUserName(userName);
+		return chatUserRepository.findUserByUserName(userName);
 	}
 
 	public User getUserFromDatabaseById(Long id) {
-		return chatUserRepository.findChatUserById(id);
+		return chatUserRepository.findUserById(id);
 	}
 
 	public void saveUser(User user) {

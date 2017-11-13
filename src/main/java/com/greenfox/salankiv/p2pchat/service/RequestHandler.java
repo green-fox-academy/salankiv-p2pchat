@@ -1,7 +1,7 @@
 package com.greenfox.salankiv.p2pchat.service;
 
 import com.greenfox.salankiv.p2pchat.model.Log;
-import com.greenfox.salankiv.p2pchat.model.ChatUserRepository;
+import com.greenfox.salankiv.p2pchat.model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 public class RequestHandler {
 
 	@Autowired
-	ChatUserRepository chatUserRepository;
+	UserRepository chatUserRepository;
 
 	public boolean checkEnvIfInfo() {
 		return  (System.getenv("CHAT_APP_LOGLEVEL").equals("INFO"));
