@@ -3,7 +3,6 @@ package com.greenfox.salankiv.p2pchat.controller;
 import com.greenfox.salankiv.p2pchat.model.Message;
 import com.greenfox.salankiv.p2pchat.service.MessageHandler;
 import com.greenfox.salankiv.p2pchat.service.UserHandler;
-import com.greenfox.salankiv.p2pchat.service.RequestHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,11 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.greenfox.salankiv.p2pchat.controller.LogController.logr;
+
 @Controller
 public class MainController {
-
-	@Autowired
-	RequestHandler requestHandler;
 
 	@Autowired
 	UserHandler userHandler;
@@ -26,12 +24,13 @@ public class MainController {
 
 	@GetMapping(value = "/")
 	public String loadMain(HttpServletRequest request, Model model) {
-		requestHandler.printNewLog(request);
 		if (userHandler.getActiveUser() == null) {
+			logr.info("Loading main page");
 			return "user";
 		} else {
 			model.addAttribute("activeUser", userHandler.getActiveUser());
 			model.addAttribute("messages", messageHandler.getUserMessages(userHandler.getActiveUser()));
+			logr.info("Loading main page with active user");
 			return "main";
 		}
 	}
@@ -46,7 +45,7 @@ public class MainController {
 						  HttpServletRequest request, Model model) {
 		if (username.equals("")) {
 			model.addAttribute("noUserName", username);
-			requestHandler.printNewError(request);
+			logr.severe("No username provided!");
 			return "user";
 		} else if (userHandler.checkIfUserExists(username)) {
 			userHandler.setActiveUser(userHandler.getUserFromDatabaseByName(username));
@@ -54,7 +53,6 @@ public class MainController {
 		} else {
 			userHandler.addUser(username);
 			userHandler.setActiveUser(userHandler.getUserFromDatabaseByName(username));
-			requestHandler.printNewLog(request);
 			return "redirect:/";
 		}
 	}
@@ -65,7 +63,6 @@ public class MainController {
 		if (userName.equals("")) {
 			model.addAttribute("noUserName", userName);
 			model.addAttribute("activeUser", userHandler.getActiveUser());
-			requestHandler.printNewError(request);
 			return "main";
 		} else if (userHandler.checkIfUserExists(userName)) {
 			model.addAttribute("existingUserName", true);
