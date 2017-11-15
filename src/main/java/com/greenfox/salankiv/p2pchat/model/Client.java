@@ -4,7 +4,7 @@ public class Client {
 	private String id;
 
 	public Client() {
-		this.id = "salankiv";
+		this.id = "CHAT_APP_UNIQUE_ID";
 	}
 
 	public Client(String id) {

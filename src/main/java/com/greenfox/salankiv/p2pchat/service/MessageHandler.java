@@ -28,7 +28,8 @@ public class MessageHandler {
 	public void postMessage(Message message) {
 		Request requestToSend = new Request(message, new Client());
 		RestTemplate template = new RestTemplate();
-		Return response = template.postForObject("https://p2pchatapp.herokuapp.com/api/message/receive", requestToSend, Return.class);
+		String url = System.getenv("CHAT_APP_PEER_ADDRESSS");
+		Return response = template.postForObject(url, requestToSend, Return.class);
 		System.out.println(response.getStatus());
 		System.out.println(response.getMessage());
 	}
