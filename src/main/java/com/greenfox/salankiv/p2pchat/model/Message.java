@@ -1,8 +1,5 @@
 package com.greenfox.salankiv.p2pchat.model;
 
-import com.greenfox.salankiv.p2pchat.service.UserHandler;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -46,19 +43,37 @@ public class Message {
 	@OneToOne
 	public User user;
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getUsername() {
-		return user.getUsername();
+		return username;
 	}
 
-	public Long getUserId() {
-		return user.getId();
+	public String getTimestamp() {
+		return timestamp;
 	}
 
-	public User getUser() {
-		return user;
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	@Override
+	public String toString() {
+		return "message: {" + "\n" +
+				"id" + this.getId() + "\n" +
+				"username" + this.user.getUsername() + "\n" +
+				"text" + this.getText() + "\n" +
+				"timestamp" + this.getTimestamp() + "\n" +
+				"}";
 	}
 }

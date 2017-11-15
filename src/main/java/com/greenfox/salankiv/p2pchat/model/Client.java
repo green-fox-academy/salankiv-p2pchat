@@ -17,4 +17,11 @@ public class Client {
 	public void setId(String id) {
 		this.id = id;
 	}
+
+	@Override
+	public String toString() {
+		return "client: {" + "\n" +
+				"id" + this.getId() + "\n" +
+				"}";
+	}
 }
