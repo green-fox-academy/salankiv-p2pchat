@@ -22,7 +22,7 @@ public class Client {
 	@Override
 	public String toString() {
 		return "client: {" + "\n" +
-				"id" + this.getId() + "\n" +
+				"id: " + this.getId() + "\n" +
 				"}";
 	}
 }

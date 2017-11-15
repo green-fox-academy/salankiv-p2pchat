@@ -86,7 +86,7 @@ public class MainController {
 		Message message = new Message(messageText);
 		message.setUser(userHandler.getActiveUser());
 		message.setUsername(userHandler.getActiveUser().getUsername());
-//		messageHandler.saveNewMessage(message);
+		messageHandler.saveNewMessage(message);
 		messageHandler.postMessage(message);
 		return "redirect:/";
 	}

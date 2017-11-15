@@ -4,8 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 @Entity
@@ -16,12 +16,12 @@ public class Message {
 	private int id;
 
 	private String text;
-	private String timestamp;
+	private Long timestamp;
 	private String username;
 
 	public Message(String text) {
 		this.text = text;
-		this.timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
+		this.timestamp = System.currentTimeMillis();
 		this.id = new Random().nextInt(9999999) + 1000000;
 	}
 
@@ -51,11 +51,11 @@ public class Message {
 		return username;
 	}
 
-	public String getTimestamp() {
+	public Long getTimestamp() {
 		return timestamp;
 	}
 
-	public void setTimestamp(String timestamp) {
+	public void setTimestamp(Long timestamp) {
 		this.timestamp = timestamp;
 	}
 
@@ -70,10 +70,10 @@ public class Message {
 	@Override
 	public String toString() {
 		return "message: {" + "\n" +
-				"id" + this.getId() + "\n" +
-				"username" + this.user.getUsername() + "\n" +
-				"text" + this.getText() + "\n" +
-				"timestamp" + this.getTimestamp() + "\n" +
+				"id: " + this.getId() + "\n" +
+				"username: " + this.user.getUsername() + "\n" +
+				"text: " + this.getText() + "\n" +
+				"timestamp: " + this.getTimestamp() + "\n" +
 				"}";
 	}
 }
