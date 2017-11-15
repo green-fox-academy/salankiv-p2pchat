@@ -1,6 +1,6 @@
 package com.greenfox.salankiv.p2pchat.controller;
 
-import com.greenfox.salankiv.p2pchat.model.ClientMessage;
+import com.greenfox.salankiv.p2pchat.model.Request;
 import com.greenfox.salankiv.p2pchat.model.Return;
 import com.greenfox.salankiv.p2pchat.service.MessageHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ public class RestController {
 
 	@CrossOrigin("*")
 	@PostMapping(value = "/api/message/receive")
-	public Return receiveMessage(@RequestBody ClientMessage clientMessage) {
+	public Return receiveMessage(@RequestBody Request clientMessage) {
 		Return sendReturn = new Return();
 		String errorMessage = "Missing field(s): ";
 		boolean badMessage = false;

@@ -1,10 +1,9 @@
 package com.greenfox.salankiv.p2pchat.service;
 
-import com.greenfox.salankiv.p2pchat.model.Message;
-import com.greenfox.salankiv.p2pchat.model.MessageRepository;
-import com.greenfox.salankiv.p2pchat.model.User;
+import com.greenfox.salankiv.p2pchat.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -20,5 +19,17 @@ public class MessageHandler {
 
 	public List<Message> getUserMessages(User user) {
 		return messageRepository.findAllByUser(user);
+	}
+
+	public Iterable<Message> getAllMessages() {
+		return messageRepository.findAll();
+	}
+
+	public void postMessage(Message message) {
+		Request requestToSend = new Request(message, new Client());
+		RestTemplate template = new RestTemplate();
+		Return response = template.postForObject("https://p2pchatapp.herokuapp.com/api/message/receive", requestToSend, Return.class);
+		System.out.println(response.getStatus());
+		System.out.println(response.getMessage());
 	}
 }

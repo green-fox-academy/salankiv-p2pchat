@@ -29,7 +29,7 @@ public class MainController {
 			return "user";
 		} else {
 			model.addAttribute("activeUser", userHandler.getActiveUser());
-			model.addAttribute("messages", messageHandler.getUserMessages(userHandler.getActiveUser()));
+			model.addAttribute("messages", messageHandler.getAllMessages());
 			logr.info("Loading main page with active user");
 			return "main";
 		}
@@ -85,7 +85,9 @@ public class MainController {
 	public String saveMessage(@RequestParam(value = "newMessage") String messageText) {
 		Message message = new Message(messageText);
 		message.setUser(userHandler.getActiveUser());
-		messageHandler.saveNewMessage(message);
+		message.setUsername(userHandler.getActiveUser().getUsername());
+//		messageHandler.saveNewMessage(message);
+		messageHandler.postMessage(message);
 		return "redirect:/";
 	}
 }
