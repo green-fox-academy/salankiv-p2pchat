@@ -16,12 +16,12 @@ public class Message {
 	private int id;
 
 	private String text;
-	private Long timestamp;
+	private Timestamp timestamp;
 	private String username;
 
 	public Message(String text) {
 		this.text = text;
-		this.timestamp = System.currentTimeMillis();
+		this.timestamp = new Timestamp(System.currentTimeMillis());
 		this.id = new Random().nextInt(9999999) + 1000000;
 	}
 
@@ -51,11 +51,11 @@ public class Message {
 		return username;
 	}
 
-	public Long getTimestamp() {
+	public Timestamp getTimestamp() {
 		return timestamp;
 	}
 
-	public void setTimestamp(Long timestamp) {
+	public void setTimestamp(Timestamp timestamp) {
 		this.timestamp = timestamp;
 	}
 
@@ -67,13 +67,4 @@ public class Message {
 		this.user = user;
 	}
 
-	@Override
-	public String toString() {
-		return "message: {" + "\n" +
-				"id: " + this.getId() + "\n" +
-				"username: " + this.user.getUsername() + "\n" +
-				"text: " + this.getText() + "\n" +
-				"timestamp: " + this.getTimestamp() + "\n" +
-				"}";
-	}
 }

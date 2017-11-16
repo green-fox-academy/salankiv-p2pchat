@@ -19,10 +19,4 @@ public class Client {
 		this.id = id;
 	}
 
-	@Override
-	public String toString() {
-		return "client: {" + "\n" +
-				"id: " + this.getId() + "\n" +
-				"}";
-	}
 }

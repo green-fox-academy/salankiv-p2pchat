@@ -31,11 +31,4 @@ public class Request {
 		this.client = client;
 	}
 
-	@Override
-	public String toString() {
-		return "message: {" + "\n" +
-				this.getMessage() + "\n" +
-				this.getClient() +"\n" +
-				"}";
-	}
 }

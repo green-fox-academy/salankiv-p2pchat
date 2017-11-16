@@ -32,7 +32,7 @@ public class RestController {
 			errorMessage += "message.text ";
 			badMessage = true;
 		}
-		if (clientMessage.getMessage().getTimestamp() == 0) {
+		if (clientMessage.getMessage().getTimestamp() == null) {
 			errorMessage += "message.timestamp";
 			badMessage = true;
 		}
